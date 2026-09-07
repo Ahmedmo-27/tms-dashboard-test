@@ -374,8 +374,9 @@ export default function PaymentsContainer({
 
         <CardContent className="p-0 sm:p-6">
           <div className="rounded-md border overflow-hidden">
-            <DataTable columns={columns} data={filteredPayments} />
-            {filteredPayments.length === 0 && payments.length > 0 && (
+            {filteredPayments.length > 0 ? (
+              <DataTable columns={columns} data={filteredPayments} />
+            ) : payments.length > 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <Search className="h-12 w-12 text-muted-foreground/50" />
                 <h3 className="mt-4 text-lg font-semibold">
@@ -397,8 +398,7 @@ export default function PaymentsContainer({
                   Clear filters
                 </Button>
               </div>
-            )}
-            {payments.length === 0 && (
+            ) : (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <DollarSign className="h-12 w-12 text-muted-foreground/50" />
                 <h3 className="mt-4 text-lg font-semibold">No payments yet</h3>
