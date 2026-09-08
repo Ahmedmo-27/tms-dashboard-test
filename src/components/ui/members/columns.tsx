@@ -58,10 +58,11 @@ export type Member = {
 };
 
 function soonestActiveExpiry(packages: MemberPackage[]): Date | null {
+  const now = new Date().getTime();
   const times = (packages ?? [])
     .filter((pkg) => pkg.status?.toUpperCase() === "ACTIVE" && pkg.pkgEndDate)
     .map((pkg) => new Date(pkg.pkgEndDate).getTime())
-    .filter((time) => !Number.isNaN(time));
+    .filter((time) => !Number.isNaN(time) && time >= now);
   if (times.length === 0) return null;
   return new Date(Math.min(...times));
 }
